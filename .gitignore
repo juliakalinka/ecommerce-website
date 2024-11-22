@@ -1,3 +1,4 @@
 /vendor/
 prometheus-2.44.0.linux-amd64.tar.gz
 postman.tar.gz
+bin/
