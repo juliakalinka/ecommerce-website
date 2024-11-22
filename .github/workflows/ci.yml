@@ -4,10 +4,10 @@ name: CI Pipeline
 on:
   push:
     branches:
-      - main   # Пайплайн запускається при пушах в гілку main
+      - master   # Пайплайн запускається при пушах в гілку master
   pull_request:
     branches:
-      - main   # Запускається для pull request до main
+      - master   # Запускається для pull request до master
 
 # Опис завдань
 jobs:
