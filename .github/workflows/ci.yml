@@ -1,0 +1,39 @@
+name: CI Pipeline
+
+# Вказуємо, коли запускати цей процес
+on:
+  push:
+    branches:
+      - main   # Пайплайн запускається при пушах в гілку main
+  pull_request:
+    branches:
+      - main   # Запускається для pull request до main
+
+# Опис завдань
+jobs:
+  build:
+    # Виконується на останній версії Ubuntu
+    runs-on: ubuntu-latest
+
+    steps:
+      # Крок 1: Клонуємо репозиторій
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Крок 2: Встановлюємо PHP і залежності
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4' # Вказуємо версію PHP
+          extensions: mbstring, intl, pdo_mysql # Встановлюємо необхідні розширення
+          ini-values: post_max_size=256M, upload_max_filesize=256M # Налаштування PHP
+
+      # Крок 3: Встановлюємо Composer
+      - name: Install Composer dependencies
+        run: |
+          composer install
+
+      # Крок 4: Запускаємо тести
+      - name: Run PHPUnit tests
+        run: |
+          ./vendor/bin/phpunit

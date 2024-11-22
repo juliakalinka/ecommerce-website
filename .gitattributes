@@ -1,0 +1,4 @@
+# Auto detect text files and perform LF normalization
+* text=auto
+prometheus-2.44.0.linux-amd64.tar.gz filter=lfs diff=lfs merge=lfs -text
+postman.tar.gz filter=lfs diff=lfs merge=lfs -text
