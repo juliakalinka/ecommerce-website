@@ -36,7 +36,7 @@ jobs:
 
       # Крок 5: Запуск PHPUnit тестів у контейнері
       - name: Run PHPUnit tests in Docker container
-        run: docker exec -it ecommerce-website-app ./vendor/bin/phpunit
+        run: docker exec ecommerce-website-app ./vendor/bin/phpunit
 
       # Крок 6: Зупинка контейнерів
       - name: Stop containers
