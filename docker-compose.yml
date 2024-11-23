@@ -3,6 +3,7 @@ version: '3.8'
 services:
   app:
     build: .
+    container_name: ecommerce-website-app  # Додано стабільне ім'я контейнера
     ports:
       - "8080:80"
     volumes:
@@ -59,6 +60,3 @@ volumes:
 networks:
   mynetwork:
     driver: bridge  # Створюємо віртуальну мережу для всіх контейнерів
-  default:
-    external:
-      name: mynetwork
