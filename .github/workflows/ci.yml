@@ -3,10 +3,10 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - master  # Запускаємо пайплайн при пуші в гілку master
+      - master
   pull_request:
     branches:
-      - master  # Запускаємо пайплайн при створенні pull request в гілку master
+      - master
 
 jobs:
   build-and-test:
@@ -34,11 +34,15 @@ jobs:
       - name: Start containers
         run: docker-compose up -d
 
-      # Крок 5: Запуск PHPUnit тестів у контейнері
+      # Крок 5: Інсталяція залежностей через Composer
+      - name: Install PHP dependencies
+        run: docker exec ecommerce-website-app composer install
+
+      # Крок 6: Запуск PHPUnit тестів у контейнері
       - name: Run PHPUnit tests in Docker container
         run: docker exec ecommerce-website-app ./vendor/bin/phpunit
 
-      # Крок 6: Зупинка контейнерів
+      # Крок 7: Зупинка контейнерів
       - name: Stop containers
         run: docker-compose down
 
