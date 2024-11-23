@@ -17,7 +17,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Крок 2: Логін в DockerHub (якщо потрібно)
+      # Крок 2: Логін в DockerHub
       - name: Log in to DockerHub
         uses: docker/login-action@v2
         with:
@@ -55,10 +55,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Крок 2: Створення Docker образу
+      # Крок 2: Логін в DockerHub
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      # Крок 3: Створення Docker образу
       - name: Build Docker image
         run: docker build -t juliakalinka/ecommerce-app:${{ github.sha }} .
 
-      # Крок 3: Пуш Docker образу на DockerHub (опціонально)
+      # Крок 4: Перевірка наявності образу в локальному сховищі
+      - name: Check if image exists
+        run: docker images
+
+      # Крок 5: Пуш Docker образу на DockerHub
       - name: Push Docker image to DockerHub
         run: docker push juliakalinka/ecommerce-app:${{ github.sha }}
